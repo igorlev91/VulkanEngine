@@ -6,15 +6,16 @@
 
 #include "engine.h"
 #include "window.h"
+#include "graphicsContext.h"
 
 #define GLFW_INCLUDE_VULKAN
 #include "glfw/include/GLFW/glfw3.h"
 
 class VK_Window : public Window
 {
-    
+
 public:
-    
+
     VK_Window(const WindowProperties& props);
     ~VK_Window() override;
 
@@ -63,18 +64,17 @@ private:
         //double m_MousePosX;
         //double m_MousePosY;
     };
-    
+
     static bool m_GLFWIsInitialized;
     //
     bool m_OK;
-    //
+
     WindowData m_WindowProperties;
-    //GLFWwindow* m_Window;
-    //std::shared_ptr<GraphicsContext>(m_GraphicsContext);
-    //
-    //uint m_RefreshRate;
+    std::shared_ptr<GraphicsContext> m_GraphicsContext;
+
+    uint m_RefreshRate;
     bool m_IsFullscreen;
-    //
+
     //int m_WindowedWidth, m_WindowedHeight;
     //int m_WindowPositionX, m_WindowPositionY;
     //bool m_AllowCursor;
