@@ -18,4 +18,8 @@ public:
     
     static std::shared_ptr<Application> Create();
 
+private:
+
+    static void ConsoleInputHandler();
+
 };

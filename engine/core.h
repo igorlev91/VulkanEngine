@@ -1,8 +1,13 @@
 
 
-#pragma one
+#pragma once
 
 #include <string>
+
+#include "engine.h"
+
+#define GLFW_INCLUDE_VULKAN
+#include "glfw/include/GLFW/glfw3.h"
 
 class Engine
 {
@@ -17,10 +22,8 @@ public:
     bool Start();
     void OnUpdate();
     void OnRender();
-    void Shutdown(bool switchOffComputer = false);
+    void Shutdown();
     void Quit();
-
-    void InitSettings();
 
     bool IsRunning() const { return m_Running; }
     std::string GetConfigFilePath() const { return m_ConfigFilePath; }
@@ -33,7 +36,7 @@ private:
 private:
     
     std::string m_ConfigFilePath;
-
+    GLFWwindow* m_Window;
     bool m_Running;
 
 };

@@ -1,4 +1,4 @@
-# git ignore file for project Engine (LevdanskyRenderEngine)
+# git ignore file for project Engine 
 bin
 obj
 Makefile
