@@ -2,7 +2,6 @@
 
 #if defined(PROFILING)
 
-    #include <iostream>
     #include <sstream>
 
     #include "core.h"

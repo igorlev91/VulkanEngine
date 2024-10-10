@@ -2,11 +2,10 @@
 
 #pragma once
 
-#include <iostream>
-
 #include "engine.h"
 #include "window.h"
-#include "graphicsContext.h"
+#include "VKdevice.h"
+#include "VKpipeline.h"
 
 #define GLFW_INCLUDE_VULKAN
 #include "glfw/include/GLFW/glfw3.h"
@@ -25,6 +24,7 @@ public:
     //
     bool InitGLFW();
     void Shutdown();
+    void CreateWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
     //void* GetWindow() const override { return (void*)m_Window; }
     //std::shared_ptr<GraphicsContext> GetGraphicsContent() const override { return m_GraphicsContext; }
     void OnUpdate() override;    
@@ -70,7 +70,8 @@ private:
     bool m_OK;
 
     WindowData m_WindowProperties;
-    std::shared_ptr<GraphicsContext> m_GraphicsContext;
+    std::shared_ptr<VK_Device> m_Device;
+    std::shared_ptr<VK_Pipeline> m_Pipeline;
 
     uint m_RefreshRate;
     bool m_IsFullscreen;
