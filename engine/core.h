@@ -2,12 +2,13 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include "engine.h"
+#include "window.h"
 
-#define GLFW_INCLUDE_VULKAN
-#include "glfw/include/GLFW/glfw3.h"
+
 
 class Engine
 {
@@ -36,7 +37,7 @@ private:
 private:
     
     std::string m_ConfigFilePath;
-    GLFWwindow* m_Window;
+    std::unique_ptr<Window> m_Window;
     bool m_Running;
 
 };
