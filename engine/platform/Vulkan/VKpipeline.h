@@ -10,18 +10,20 @@
 
 struct PipelineConfigInfo
 {
+    PipelineConfigInfo(const PipelineConfigInfo&) = delete;
+    PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
+
     // input assembly stage
+    VkPipelineViewportStateCreateInfo viewportInfo;
     VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
-
-    VkViewport viewport;
-    VkRect2D scissor;
-
     VkPipelineRasterizationStateCreateInfo rasterizationInfo;
     VkPipelineMultisampleStateCreateInfo multisampleInfo;
     VkPipelineColorBlendAttachmentState colorBlendAttachment;
     VkPipelineColorBlendStateCreateInfo colorBlendInfo;
     VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
 
+    std::vector<VkDynamicState> dynamicStateEnables;
+    VkPipelineDynamicStateCreateInfo dynamicStateInfo;
     VkPipelineLayout pipelineLayout = nullptr;
     VkRenderPass renderPass = nullptr;
     uint subpass = 0;
@@ -39,11 +41,11 @@ public:
     ~VK_Pipeline();
 
     VK_Pipeline(const VK_Pipeline&) = delete;
-    void operator=(const VK_Pipeline&) = delete;
+    VK_Pipeline& operator=(const VK_Pipeline&) = delete;
 
     void Bind(VkCommandBuffer commandBuffer);
 
-    static PipelineConfigInfo DefaultPipelineConfigInfo(uint width, uint height);
+    static void DefaultPipelineConfigInfo(PipelineConfigInfo& configInfo);
 
 private:
 

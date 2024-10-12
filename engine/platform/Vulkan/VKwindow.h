@@ -34,7 +34,7 @@ public:
     uint GetWidth()  const override { return m_WindowProperties.m_Width; }
     uint GetHeight() const override { return m_WindowProperties.m_Height; }
     //
-    //void SetEventCallback(const EventCallbackFunction& callback) override;
+    void SetEventCallback(const EventCallbackFunction& callback) override;
     //void SetVSync(int interval) override;
     //void ToggleFullscreen() override;
     //bool IsFullscreen() override { return m_IsFullscreen; }
@@ -44,7 +44,7 @@ public:
     float GetWindowAspectRatio() const override { return m_WindowProperties.m_Width / (1.0f * m_WindowProperties.m_Height); }
     //double GetTime() const override { return glfwGetTime(); }
     //
-    //static void OnError(int errorCode, const char* description);
+    static void OnError(int errorCode, const char* description);
     //
     //void EnableMousePointer() override;
     //void DisableMousePointer() override;
@@ -58,7 +58,14 @@ private:
     void CreatePipelineLayout();
     void CreatePipeline();
     void CreateCommandBuffers();
+    void FreeCommandBuffers();
     void DrawFrame();
+
+    void RecreateSwapChain();
+    void RecordCommandBuffer(int imageIndex);
+
+    bool WasResized() const { return m_WindowProperties.m_FramebufferResized; }
+    void ResetWindowResizedFlag() { m_WindowProperties.m_FramebufferResized = false; }
 
 private:
 
@@ -70,9 +77,10 @@ private:
         int m_Width;
         int m_Height;
         //int m_VSync;
-        //EventCallbackFunction m_EventCallback;
+        EventCallbackFunction m_EventCallback;
         //double m_MousePosX;
         //double m_MousePosY;
+        bool m_FramebufferResized;
     };
 
     static bool m_GLFWIsInitialized;
@@ -82,7 +90,7 @@ private:
     WindowData m_WindowProperties;
     std::shared_ptr<VK_Device> m_Device;
     std::unique_ptr<VK_Pipeline> m_Pipeline;
-    std::shared_ptr<VK_SwapChain> m_SwapChain;
+    std::unique_ptr<VK_SwapChain> m_SwapChain;
     std::shared_ptr<VK_Model> m_Model;
     VkPipelineLayout m_PipelineLayout;
     std::vector<VkCommandBuffer> m_CommandBuffers;
@@ -93,4 +101,5 @@ private:
     //int m_WindowedWidth, m_WindowedHeight;
     //int m_WindowPositionX, m_WindowPositionY;
     //bool m_AllowCursor;
+
 };
